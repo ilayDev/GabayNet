@@ -1,11 +1,11 @@
 class SeferTora{
     name;
-    azcraDates;
+    azcaraDates;
     ranking;
 
     constructor(name,dates){
         this.name = name;
-        this.azcraDates = dates;
+        this.azcaraDates = dates;
         this.ranking = 0;
     }
 
