@@ -2,6 +2,7 @@ const http = require('http');
 const HebMonthEnum = require('./HebMonthEnum');
 const hebcal = require('hebcal');
 const SeferTora = require('./SeferTora');
+const sefarimFile = require('./sefarim');
 
 
 const express = require('express')
@@ -15,8 +16,8 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 
 
-var sefer1  = new SeferTora("levi", [new hebcal.HDate(27,'Adar',5775)]);
-var sefer2  = new SeferTora("mualem",[new hebcal.HDate(6,'Nisan',5778)]);
+var sefer1  = new SeferTora("לוי", [new hebcal.HDate(27,'Adar',5775)]);
+var sefer2  = new SeferTora("מועלם",[new hebcal.HDate(10,'Nisan',5778)]);
 var sefarim = [sefer1,sefer2];
 
 app.get('/sefarim', (req, res) => res.send(sefarim))
@@ -41,14 +42,15 @@ function IsDatesThisWeek(dates){
   var currDate = new hebcal.HDate();
   var azcaraDatesThisYear = getDateInCurrYear(dates, currDate);
   
+  var flag = false;
   azcaraDatesThisYear.forEach(date => {
 
-    if (date.abs()<= (currDate.abs()+6)) {
+    if (date.abs() <= (currDate.abs()+6) && date.abs() >= currDate.abs() ) {
     console.log(date.abs()<= (currDate.abs()+6))
-      return true;
+      flag = true;
     }
   });
-return false;
+return flag;
 }
 
 function getDateInCurrYear(dates, currDate) {
